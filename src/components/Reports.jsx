@@ -48,6 +48,11 @@ function Reports({ transactions, expenses, accounts }) {
     let income = 0
     let expense = 0
 
+    // Get opening balance from accounts (initial money)
+    const openingBalance = accounts.reduce((sum, acc) => {
+      return sum + (parseFloat(acc.balance) || 0)
+    }, 0)
+
     // Get income from transactions
     transactions.forEach(tx => {
       if (tx.type === 'income') {
@@ -67,13 +72,33 @@ function Reports({ transactions, expenses, accounts }) {
       }
     })
 
+    // Add opening balance when no filter is applied (showing all-time report)
+    if (filterType === 'month' && selectedMonth === new Date().toISOString().slice(0, 7)) {
+      // Only add opening balance to current month if user wants historical data
+      // For now, we'll include it
+    } else if (filterType === 'date-range' && startDate && endDate) {
+      // Check if date range includes the beginning of time (opening balance time)
+      // For now, only add opening balance if we're looking at all time
+      const start = new Date(startDate)
+      const allAccountsCreatedBefore = accounts.every(acc => {
+        const createdAt = new Date(acc.created_at || 0)
+        return createdAt <= start
+      })
+      if (allAccountsCreatedBefore) {
+        income += openingBalance
+      }
+    } else {
+      // If no specific filter, include opening balance
+      income += openingBalance
+    }
+
     // Get expenses from filtered list
     filteredExpenses.forEach(exp => {
       expense += parseFloat(exp.amount)
     })
 
     return { totalIncome: income, totalExpense: expense }
-  }, [transactions, filteredExpenses, filterType, selectedMonth, startDate, endDate])
+  }, [transactions, filteredExpenses, filterType, selectedMonth, startDate, endDate, accounts])
 
   const exportToCSV = () => {
     const headers = ['Date', 'Description', 'Amount', 'Category', 'Account']
