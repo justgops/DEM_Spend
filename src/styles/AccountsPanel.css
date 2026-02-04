@@ -1,0 +1,231 @@
+.accounts-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.panel-header h2 {
+  font-size: 1.25rem;
+  color: #e2e8f0;
+  font-weight: 700;
+}
+
+.btn-add {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.account-form {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.account-form input,
+.account-form select {
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+  padding: 0.6rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.account-form input::placeholder {
+  color: #64748b;
+}
+
+.account-form input:focus,
+.account-form select:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.accounts-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.account-group {
+  border: 1px solid #334155;
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.group-title {
+  background: #0f172a;
+  color: #60a5fa;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-bottom: 1px solid #334155;
+  margin: 0;
+}
+
+.account-group.credit_card .group-title {
+  color: #ef4444;
+}
+
+.account-group.bank .group-title {
+  color: #10b981;
+}
+
+.accounts-list {
+  padding: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.account-card {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.account-card:hover {
+  border-color: #475569;
+  transform: translateY(-1px);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.card-name {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-edit {
+  background: transparent;
+  border: 1px solid #3b82f6;
+  color: #3b82f6;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.btn-edit:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-delete {
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.btn-delete:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.card-balance {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #60a5fa;
+  margin: 0.5rem 0;
+}
+
+.account-card.credit_card .card-balance {
+  color: #ef4444;
+}
+
+.account-card.bank .card-balance {
+  color: #10b981;
+}
+
+.account-card.cash .card-balance {
+  color: #f59e0b;
+}
+
+.card-info {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .accounts-list {
+    grid-template-columns: 1fr;
+  }
+}

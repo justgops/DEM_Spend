@@ -1,0 +1,461 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.balance-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 2rem;
+  color: white;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  margin-bottom: 1rem;
+}
+
+.balance-content h2 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.balance-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem 0;
+}
+
+.balance-subtext {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.cashflow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.cashflow-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.cashflow-card:hover {
+  border-color: #475569;
+  transform: translateY(-2px);
+}
+
+.cashflow-card.income {
+  border-left: 4px solid #10b981;
+}
+
+.cashflow-card.expense {
+  border-left: 4px solid #ef4444;
+}
+
+.cashflow-card.savings {
+  border-left: 4px solid #3b82f6;
+}
+
+.cf-icon {
+  font-size: 1.75rem;
+}
+
+.cf-content h3 {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.cf-amount {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 0;
+}
+
+.accounts-summary {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.accounts-summary h3 {
+  color: #e2e8f0;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.summary-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.summary-item {
+  background: #0f172a;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.item-label {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.item-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #60a5fa;
+}
+
+.category-breakdown {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.category-breakdown h3 {
+  color: #e2e8f0;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cat-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.cat-emoji {
+  font-size: 1.5rem;
+}
+
+.cat-info {
+  flex: 1;
+}
+
+.cat-name {
+  display: block;
+  color: #e2e8f0;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #334155;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.cat-amount {
+  color: #94a3b8;
+  font-weight: 700;
+  min-width: 80px;
+  text-align: right;
+}
+
+.recent-transactions {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.recent-transactions h3 {
+  color: #e2e8f0;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.tx-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tx-item {
+  display: grid;
+  grid-template-columns: 40px 1fr 120px;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #0f172a;
+  border-radius: 8px;
+  border-left: 3px solid #64748b;
+  transition: all 0.3s ease;
+}
+
+.tx-item:hover {
+  background: #1e293b;
+}
+
+.tx-item.expense {
+  border-left-color: #ef4444;
+}
+
+.tx-item.income {
+  border-left-color: #10b981;
+}
+
+.tx-item.transfer {
+  border-left-color: #3b82f6;
+}
+
+.tx-item.credit_payment {
+  border-left-color: #f97316;
+}
+
+.tx-icon {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.tx-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.tx-desc {
+  color: #e2e8f0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.tx-account {
+  color: #64748b;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.tx-amount-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.tx-amount {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.tx-amount.positive {
+  color: #10b981;
+}
+
+.tx-amount.negative {
+  color: #ef4444;
+}
+
+.tx-time {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .balance-amount {
+    font-size: 2rem;
+  }
+
+  .cashflow-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tx-item {
+    grid-template-columns: 35px 1fr;
+  }
+
+  .tx-amount-section {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+  }
+}
+
+.summary-card.credit .amount {
+  color: #ef4444;
+}
+
+.summary-card.expense .amount {
+  color: #ec4899;
+}
+
+.accounts-overview,
+.recent-activity {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.accounts-overview h2,
+.recent-activity h2 {
+  font-size: 1.1rem;
+  color: #e2e8f0;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.accounts-list,
+.transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.account-row,
+.tx-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: #0f172a;
+  border-radius: 6px;
+  border-left: 3px solid #475569;
+  transition: all 0.2s ease;
+}
+
+.account-row:hover,
+.tx-row:hover {
+  background: #1e293b;
+  border-left-color: #60a5fa;
+}
+
+.account-row.credit_card {
+  border-left-color: #ef4444;
+}
+
+.account-info {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.account-name {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+.account-type {
+  background: #334155;
+  color: #cbd5e1;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}
+
+.account-balance {
+  color: #60a5fa;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.account-balance.negative {
+  color: #ef4444;
+}
+
+.tx-info {
+  flex: 1;
+}
+
+.tx-desc {
+  display: block;
+  color: #e2e8f0;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.tx-type {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tx-amount {
+  color: #60a5fa;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.tx-row.credit_payment .tx-amount {
+  color: #ef4444;
+}
+
+.tx-row.income .tx-amount {
+  color: #4ade80;
+}
+
+@media (max-width: 768px) {
+  .summary-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .summary-card .amount {
+    font-size: 1.5rem;
+  }
+
+  .account-row,
+  .tx-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .account-balance,
+  .tx-amount {
+    align-self: flex-end;
+  }
+}

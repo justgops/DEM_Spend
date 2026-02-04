@@ -1,0 +1,208 @@
+.transaction-list {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.transaction-list h2 {
+  font-size: 1.2rem;
+  color: #e2e8f0;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.empty-state {
+  text-align: center;
+  color: #94a3b8;
+  padding: 2rem;
+  font-size: 1rem;
+}
+
+.transactions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.transactions::-webkit-scrollbar {
+  width: 6px;
+}
+
+.transactions::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.transactions::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+.transactions::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+.transaction-item {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  background: #0f172a;
+  border-radius: 8px;
+  border-left: 4px solid #64748b;
+  transition: all 0.3s ease;
+  align-items: flex-start;
+}
+
+.transaction-item:hover {
+  background: #1e293b;
+  transform: translateX(4px);
+}
+
+.transaction-item.expense {
+  border-left-color: #ef4444;
+}
+
+.transaction-item.income {
+  border-left-color: #10b981;
+}
+
+.transaction-item.transfer {
+  border-left-color: #3b82f6;
+}
+
+.transaction-item.credit_payment {
+  border-left-color: #f97316;
+}
+
+.tx-icon {
+  font-size: 1.75rem;
+  text-align: center;
+  margin-top: 0.25rem;
+}
+
+.tx-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tx-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.tx-header > div {
+  flex: 1;
+}
+
+.tx-right {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.tx-desc {
+  color: #e2e8f0;
+  font-weight: 600;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.tx-type {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  margin: 0.25rem 0 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.tx-amount {
+  font-weight: 700;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.transaction-item.expense .tx-amount {
+  color: #ef4444;
+}
+
+.transaction-item.income .tx-amount {
+  color: #10b981;
+}
+
+.transaction-item.transfer .tx-amount {
+  color: #3b82f6;
+}
+
+.transaction-item.credit_payment .tx-amount {
+  color: #f97316;
+}
+
+.tx-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+}
+
+.tx-source,
+.tx-dest,
+.tx-date {
+  color: #64748b;
+}
+
+.tx-source,
+.tx-dest {
+  flex: 1;
+}
+
+.tx-date {
+  white-space: nowrap;
+}
+
+.btn-delete-tx {
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.btn-delete-tx:hover {
+  background: #ef4444;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .transaction-item {
+    flex-direction: column;
+  }
+
+  .tx-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tx-footer {
+    gap: 0.5rem;
+  }
+
+  .tx-source,
+  .tx-dest,
+  .tx-date {
+    display: block;
+  }
+}
