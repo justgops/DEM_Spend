@@ -73,22 +73,12 @@ function Reports({ transactions, expenses, accounts }) {
     })
 
     // Add opening balance when no filter is applied (showing all-time report)
-    if (filterType === 'month' && selectedMonth === new Date().toISOString().slice(0, 7)) {
-      // Only add opening balance to current month if user wants historical data
-      // For now, we'll include it
+    // Always include opening balance for month and date range views
+    if (filterType === 'month') {
+      income += openingBalance
     } else if (filterType === 'date-range' && startDate && endDate) {
-      // Check if date range includes the beginning of time (opening balance time)
-      // For now, only add opening balance if we're looking at all time
-      const start = new Date(startDate)
-      const allAccountsCreatedBefore = accounts.every(acc => {
-        const createdAt = new Date(acc.created_at || 0)
-        return createdAt <= start
-      })
-      if (allAccountsCreatedBefore) {
-        income += openingBalance
-      }
+      income += openingBalance
     } else {
-      // If no specific filter, include opening balance
       income += openingBalance
     }
 
