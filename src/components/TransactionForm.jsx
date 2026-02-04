@@ -13,8 +13,12 @@ function TransactionForm({ accounts, onAddTransaction }) {
   })
   const [message, setMessage] = useState('')
   const [messageType, setMessageType] = useState('')
+  const [customCategories, setCustomCategories] = useState([])
+  const [showCustomCategoryInput, setShowCustomCategoryInput] = useState(false)
+  const [newCategory, setNewCategory] = useState('')
 
-  const categories = ['food', 'transport', 'entertainment', 'utilities', 'health', 'shopping', 'other']
+  const defaultCategories = ['food', 'transport', 'entertainment', 'utilities', 'health', 'shopping', 'other']
+  const allCategories = [...defaultCategories, ...customCategories]
 
   const categoryEmojis = {
     food: '🍔',
@@ -37,6 +41,23 @@ function TransactionForm({ accounts, onAddTransaction }) {
       return next
     })
     setMessage('')
+  }
+
+  const handleAddCustomCategory = () => {
+    const trimmedCategory = newCategory.trim().toLowerCase()
+    if (!trimmedCategory) {
+      showMessage('Please enter a category name', 'error')
+      return
+    }
+    if (allCategories.includes(trimmedCategory)) {
+      showMessage('This category already exists', 'error')
+      return
+    }
+    setCustomCategories([...customCategories, trimmedCategory])
+    setFormData(prev => ({ ...prev, category: trimmedCategory }))
+    setNewCategory('')
+    setShowCustomCategoryInput(false)
+    showMessage('✓ Category added!', 'success')
   }
 
   const handleSubmit = (e) => {
@@ -158,13 +179,41 @@ function TransactionForm({ accounts, onAddTransaction }) {
           {formData.type === 'expense' && (
             <div className="form-group">
               <label>Category</label>
-              <select name="category" value={formData.category} onChange={handleChange}>
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>
-                    {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                  </option>
-                ))}
-              </select>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <select name="category" value={formData.category} onChange={handleChange}>
+                  {allCategories.map(cat => (
+                    <option key={cat} value={cat}>
+                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    </option>
+                  ))}
+                </select>
+                <button 
+                  type="button" 
+                  className="btn-add-category"
+                  onClick={() => setShowCustomCategoryInput(!showCustomCategoryInput)}
+                  title="Add custom category"
+                >
+                  +
+                </button>
+              </div>
+              {showCustomCategoryInput && (
+                <div style={{ marginTop: '8px', display: 'flex', gap: '8px' }}>
+                  <input
+                    type="text"
+                    value={newCategory}
+                    onChange={(e) => setNewCategory(e.target.value)}
+                    placeholder="New category name"
+                    onKeyPress={(e) => e.key === 'Enter' && handleAddCustomCategory()}
+                  />
+                  <button 
+                    type="button" 
+                    onClick={handleAddCustomCategory}
+                    className="btn-confirm"
+                  >
+                    Add
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>

@@ -3,17 +3,18 @@ import '../styles/Dashboard.css'
 
 function Dashboard({ accounts, transactions, expenses }) {
   const totalAssets = accounts.reduce((sum, acc) => {
-    if (acc.type === 'credit_card') return sum - acc.balance
-    return sum + acc.balance
+    const balance = parseFloat(acc.balance) || 0
+    if (acc.type === 'credit_card') return sum - balance
+    return sum + balance
   }, 0)
 
   const cashAccounts = accounts.filter(a => a.type === 'cash')
   const bankAccounts = accounts.filter(a => a.type === 'bank')
   const creditCards = accounts.filter(a => a.type === 'credit_card')
 
-  const totalCash = cashAccounts.reduce((sum, a) => sum + a.balance, 0)
-  const totalBank = bankAccounts.reduce((sum, a) => sum + a.balance, 0)
-  const totalCreditDue = creditCards.reduce((sum, a) => sum + Math.max(0, -a.balance), 0)
+  const totalCash = cashAccounts.reduce((sum, a) => sum + (parseFloat(a.balance) || 0), 0)
+  const totalBank = bankAccounts.reduce((sum, a) => sum + (parseFloat(a.balance) || 0), 0)
+  const totalCreditDue = creditCards.reduce((sum, a) => sum + Math.max(0, -(parseFloat(a.balance) || 0)), 0)
 
   const lastMonth = new Date()
   lastMonth.setMonth(lastMonth.getMonth() - 1)
