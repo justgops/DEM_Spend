@@ -103,8 +103,6 @@ function App() {
     handleRefresh()
   }
 
-  }
-
   if (loading) {
     return <div className="app-loading">Loading...</div>
   }

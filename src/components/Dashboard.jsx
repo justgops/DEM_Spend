@@ -20,15 +20,15 @@ function Dashboard({ accounts, transactions, expenses }) {
   lastMonth.setMonth(lastMonth.getMonth() - 1)
   const monthlyExpense = expenses
     .filter(e => new Date(e.expense_date) >= lastMonth && !e.description.includes('Credit Card Payment'))
-    .reduce((sum, e) => sum + e.amount, 0)
+    .reduce((sum, e) => sum + (parseFloat(e.amount) || 0), 0)
 
   const monthlyIncome = transactions
     .filter(t => t.type === 'income' && new Date(t.created_at) >= lastMonth)
-    .reduce((sum, t) => sum + t.amount, 0)
+    .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0)
 
   const categoryStats = expenses.reduce((acc, exp) => {
     if (!exp.description.includes('Credit Card Payment')) {
-      acc[exp.category] = (acc[exp.category] || 0) + exp.amount
+      acc[exp.category] = (acc[exp.category] || 0) + (parseFloat(exp.amount) || 0)
     }
     return acc
   }, {})
