@@ -165,10 +165,16 @@
   white-space: nowrap;
 }
 
+.tx-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.btn-edit-tx,
 .btn-delete-tx {
   background: transparent;
-  border: 1px solid #ef4444;
-  color: #ef4444;
+  border: 1px solid;
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -179,6 +185,21 @@
   transition: all 0.2s ease;
   padding: 0;
   flex-shrink: 0;
+}
+
+.btn-edit-tx {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.btn-edit-tx:hover {
+  background: #667eea;
+  color: white;
+}
+
+.btn-delete-tx {
+  border-color: #ef4444;
+  color: #ef4444;
 }
 
 .btn-delete-tx:hover {

@@ -61,6 +61,16 @@ export const api = {
       if (!res.ok) throw new Error(json.error || 'Failed to create transaction')
       return json
     },
+    update: async (id, data) => {
+      const res = await fetch(`${API_BASE_URL}/transactions/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error || 'Failed to update transaction')
+      return json
+    },
     delete: async (id) => {
       const res = await fetch(`${API_BASE_URL}/transactions/${id}`, { method: 'DELETE' })
       const json = await res.json()

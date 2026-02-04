@@ -1,7 +1,7 @@
 import { formatCurrency, getTimeAgo } from '../utils/api'
 import '../styles/TransactionList.css'
 
-function TransactionList({ transactions, accounts, onDeleteTransaction }) {
+function TransactionList({ transactions, accounts, onDeleteTransaction, onEditTransaction }) {
   const getAccountName = (id) => {
     return accounts.find(a => a.id === id)?.name || 'Unknown'
   }
@@ -83,18 +83,32 @@ function TransactionList({ transactions, accounts, onDeleteTransaction }) {
                       <p className={`tx-amount ${isIncome ? 'income' : 'expense'}`}>
                         {isIncome ? '+' : '-'}{formatCurrency(tx.amount)}
                       </p>
-                      {onDeleteTransaction && (
-                        <button
-                          className="btn-delete-tx"
-                          onClick={() => onDeleteTransaction(tx.id)}
-                          title="Delete transaction"
-                          aria-label="Delete transaction"
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 6h18M8 6V4a1 1 0 011-1h4a1 1 0 011 1v2m-1 0v10a1 1 0 01-1 1H9a1 1 0 01-1-1V6m3 3v4m-4-4v4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                          </svg>
-                        </button>
-                      )}
+                      <div className="tx-actions">
+                        {onEditTransaction && (
+                          <button
+                            className="btn-edit-tx"
+                            onClick={() => onEditTransaction(tx)}
+                            title="Edit transaction"
+                            aria-label="Edit transaction"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </button>
+                        )}
+                        {onDeleteTransaction && (
+                          <button
+                            className="btn-delete-tx"
+                            onClick={() => onDeleteTransaction(tx.id)}
+                            title="Delete transaction"
+                            aria-label="Delete transaction"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M3 6h18M8 6V4a1 1 0 011-1h4a1 1 0 011 1v2m-1 0v10a1 1 0 01-1 1H9a1 1 0 01-1-1V6m3 3v4m-4-4v4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                            </svg>
+                          </button>
+                        )}
+                      </div>
                     </div>
                   </div>
                   

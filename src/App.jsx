@@ -5,6 +5,7 @@ import AccountsPanel from './components/AccountsPanel'
 import TransactionForm from './components/TransactionForm'
 import TransactionList from './components/TransactionList'
 import Reports from './components/Reports'
+import EditTransactionModal from './components/EditTransactionModal'
 import { api } from './utils/api'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   const [expenses, setExpenses] = useState([])
   const [loading, setLoading] = useState(true)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
+  const [editingTransaction, setEditingTransaction] = useState(null)
 
   useEffect(() => {
     const loadData = async () => {
@@ -90,6 +92,16 @@ function App() {
         alert('Error deleting transaction: ' + error.message)
       }
     }
+  }
+
+  const handleEditTransaction = (transaction) => {
+    setEditingTransaction(transaction)
+  }
+
+  const handleSaveTransaction = () => {
+    setEditingTransaction(null)
+    handleRefresh()
+  }
 
   }
 
@@ -158,6 +170,7 @@ function App() {
                 transactions={transactions}
                 accounts={accounts}
                 onDeleteTransaction={handleDeleteTransaction}
+                onEditTransaction={handleEditTransaction}
               />
             </div>
           </div>
@@ -173,6 +186,15 @@ function App() {
           </div>
         )}
       </main>
+
+      {editingTransaction && (
+        <EditTransactionModal 
+          transaction={editingTransaction}
+          accounts={accounts}
+          onClose={() => setEditingTransaction(null)}
+          onSave={handleSaveTransaction}
+        />
+      )}
     </div>
   )
 }

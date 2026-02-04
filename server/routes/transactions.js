@@ -157,6 +157,125 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Update transaction
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { amount, description, category } = req.body;
+
+  if (!amount || !description) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  const client = await pool.connect();
+
+  try {
+    await client.query('BEGIN');
+
+    // Get the existing transaction
+    const txResult = await client.query(
+      'SELECT * FROM transactions WHERE id = $1',
+      [id]
+    );
+
+    if (txResult.rows.length === 0) {
+      await client.query('ROLLBACK');
+      return res.status(404).json({ error: 'Transaction not found' });
+    }
+
+    const oldTx = txResult.rows[0];
+    const amountDifference = parseFloat(amount) - parseFloat(oldTx.amount);
+
+    // Update the transaction record
+    const updateResult = await client.query(
+      `UPDATE transactions 
+       SET amount = $1, description = $2, category = $3, updated_at = CURRENT_TIMESTAMP
+       WHERE id = $4
+       RETURNING *`,
+      [amount, description, category, id]
+    );
+
+    // Handle balance adjustments based on transaction type
+    if (oldTx.type === 'expense') {
+      // Adjust the source account by the difference
+      if (amountDifference !== 0) {
+        const accountCheck = await client.query(
+          'SELECT balance FROM accounts WHERE id = $1',
+          [oldTx.from_account_id]
+        );
+        const newBalance = parseFloat(accountCheck.rows[0].balance) - amountDifference;
+        if (newBalance < 0) {
+          await client.query('ROLLBACK');
+          return res.status(400).json({ error: 'Insufficient funds for this transaction amount' });
+        }
+        await client.query(
+          'UPDATE accounts SET balance = balance - $1 WHERE id = $2',
+          [amountDifference, oldTx.from_account_id]
+        );
+      }
+      // Update related expense record
+      await client.query(
+        'UPDATE expenses SET amount = $1, description = $2, category = $3 WHERE description = $4 AND account_id = $5',
+        [amount, description, category, oldTx.description, oldTx.from_account_id]
+      );
+    } else if (oldTx.type === 'transfer') {
+      if (amountDifference !== 0) {
+        const accountCheck = await client.query(
+          'SELECT balance FROM accounts WHERE id = $1',
+          [oldTx.from_account_id]
+        );
+        const newBalance = parseFloat(accountCheck.rows[0].balance) - amountDifference;
+        if (newBalance < 0) {
+          await client.query('ROLLBACK');
+          return res.status(400).json({ error: 'Insufficient funds for this transaction amount' });
+        }
+        await client.query(
+          'UPDATE accounts SET balance = balance - $1 WHERE id = $2',
+          [amountDifference, oldTx.from_account_id]
+        );
+        await client.query(
+          'UPDATE accounts SET balance = balance + $1 WHERE id = $2',
+          [amountDifference, oldTx.to_account_id]
+        );
+      }
+    } else if (oldTx.type === 'income') {
+      if (amountDifference !== 0) {
+        await client.query(
+          'UPDATE accounts SET balance = balance + $1 WHERE id = $2',
+          [amountDifference, oldTx.from_account_id]
+        );
+      }
+    } else if (oldTx.type === 'credit_payment') {
+      if (amountDifference !== 0) {
+        const accountCheck = await client.query(
+          'SELECT balance FROM accounts WHERE id = $1',
+          [oldTx.from_account_id]
+        );
+        const newBalance = parseFloat(accountCheck.rows[0].balance) - amountDifference;
+        if (newBalance < 0) {
+          await client.query('ROLLBACK');
+          return res.status(400).json({ error: 'Insufficient funds for this transaction amount' });
+        }
+        await client.query(
+          'UPDATE accounts SET balance = balance - $1 WHERE id = $2',
+          [amountDifference, oldTx.from_account_id]
+        );
+        await client.query(
+          'UPDATE accounts SET balance = balance + $1 WHERE id = $2',
+          [amountDifference, oldTx.to_account_id]
+        );
+      }
+    }
+
+    await client.query('COMMIT');
+    res.json(updateResult.rows[0]);
+  } catch (error) {
+    await client.query('ROLLBACK');
+    res.status(500).json({ error: error.message });
+  } finally {
+    client.release();
+  }
+});
+
 // Delete transaction
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;

@@ -1,10 +1,11 @@
 import '../styles/ExpenseSummary.css'
 
 function ExpenseSummary({ expenses }) {
-  const totalExpense = expenses.reduce((sum, exp) => sum + exp.amount, 0)
+  const totalExpense = expenses.reduce((sum, exp) => sum + (parseFloat(exp.amount) || 0), 0)
   
   const categoryTotals = expenses.reduce((acc, exp) => {
-    acc[exp.category] = (acc[exp.category] || 0) + exp.amount
+    const amount = parseFloat(exp.amount) || 0
+    acc[exp.category] = (acc[exp.category] || 0) + amount
     return acc
   }, {})
 
