@@ -60,7 +60,7 @@ function TransactionForm({ accounts, onAddTransaction }) {
     // Check for insufficient funds (for bank, cash, and credit payment sources)
     const sourceAccount = accounts.find(a => a.id === formData.from_account_id)
     if (sourceAccount && (formData.type === 'expense' || formData.type === 'transfer' || formData.type === 'credit_payment')) {
-      if (sourceAccount.balance < formData.amount) {
+      if (sourceAccount.balance < parseFloat(formData.amount)) {
         showMessage(`Insufficient funds! Available: ${formatCurrency(sourceAccount.balance)}`, 'error')
         return
       }
